@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: passing-deployment
+  namespace: stackrox-ci
+  labels:
+    app: passing-example
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: passing-example
+  template:
+    metadata:
+      labels:
+        app: passing-example
+    spec:
+      containers:
+      - name: ubi8
+        image: registry.redhat.io/ubi8/ubi:8.5-226
+        command: ["/bin/sh", "-c", "while true; do printf .; sleep 3; done"]

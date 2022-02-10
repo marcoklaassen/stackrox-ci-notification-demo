@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: failing-deployment
+  namespace: stackrox-ci
+  labels:
+    app: failing-example
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: failing-example
+  template:
+    metadata:
+      labels:
+        app: failing-example
+    spec:
+      containers:
+      - name: ubi7
+        image: registry.access.redhat.com/ubi7:7.9-601
+        command: ["/bin/sh", "-c", "while true; do printf .; sleep 3; done"]
