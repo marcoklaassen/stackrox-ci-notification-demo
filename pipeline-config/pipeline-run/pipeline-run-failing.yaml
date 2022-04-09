@@ -1,0 +1,26 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: stackrox-ci-example-
+  namespace: stackrox-ci
+spec:
+  pipelineRef:
+    name: deployment-validation
+  params:
+  - name: stackrox-api-config-secret-name
+    value: stackrox-api-config
+  - name: git-url
+    value: https://github.com/marcoklaassen/stackrox-ci-notification-demo.git
+  - name: git-revision
+    value: main
+  - name: file-location-in-git-repo
+    value: deployment/failing-deployment.yaml
+  workspaces:
+    - name: files
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 10Mi

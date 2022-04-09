@@ -1,0 +1,3 @@
+# Advanced Cluster Security Demo Case with Pipelines and Slack Integration
+
+In this demo example, we want to prevent containers that do not meet all security requirements from being deployed. If an attempt is made to deploy a non-compliant container, users should be notified. Specifically, we want to prevent an UBI image from being deployed in version 7 and point out that version 8 should be used. As soon as a version 8 image is deployed, our pipeline runs successfully. However, if an attempt is made to deploy a version 7 image, the pipeline fails and a Slack notification is sent. The configuration of the Slack notification and the set of rules to be applied is managed by Red Hat Advanced Cluster Security. The deployment is triggered by OpenShift pipelines.

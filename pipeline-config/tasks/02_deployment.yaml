@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: deployment
+  namespace: stackrox-ci
+spec:
+  params:
+    - name: source_location
+      description: Location of the file(s) to be applied
+      type: string
+  steps:
+    - name: deploy
+      image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+      command: ["/bin/bash", "-c"]
+      args:
+        - "oc apply -f /files/$(params.source_location)"
+      workingDir: /workspace
+  workspaces:
+    - name: files
+      mountPath: /files

@@ -1,0 +1,43 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: deployment-check
+  namespace: stackrox-ci
+spec:
+  params:
+    - name: stackrox-api-config-secret-name
+      description: Secret containing the api-token and host data for ACS Central (example - api-token = <apitoken>, host = <rox.stackrox.io>)
+      type: string
+    - name: source_location
+      description: Location of the file(s) to be scanned
+      type: string
+  steps:
+    - name: rox-deployment-check
+      env:
+        - name: ROX_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: api-token
+              name: $(params.stackrox-api-config-secret-name)
+        - name: ROX_CENTRAL_HOST
+          valueFrom:
+            secretKeyRef:
+              key: host
+              name: $(params.stackrox-api-config-secret-name)
+      image: registry.redhat.io/ubi8/ubi:8.5-226
+      resources: {}
+      script: >-
+        #!/usr/bin/env bash
+
+        curl -s -L -k -H 'Authorization: Bearer '$ROX_API_TOKEN
+        'https://'$ROX_CENTRAL_HOST'/api/cli/download/roxctl-linux'
+        --output ./roxctl
+
+        chmod +x ./roxctl
+
+        ./roxctl -e "https://$ROX_CENTRAL_HOST:443" deployment check -f /files/$(params.source_location)
+
+      workingDir: /workspace
+  workspaces:
+  - name: files
+    mountPath: /files

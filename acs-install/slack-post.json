@@ -1,0 +1,8 @@
+{
+  "id":"",
+  "name":"slack-notification",
+  "labelDefault":"https://hooks.slack.com/services/<your-slack-app>",
+  "labelKey":"",
+  "uiEndpoint":"https://central-stackrox.apps.<your-cluster-domain>",
+  "type":"slack"
+}

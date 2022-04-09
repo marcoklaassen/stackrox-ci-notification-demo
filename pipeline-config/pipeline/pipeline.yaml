@@ -1,0 +1,70 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: deployment-validation
+  namespace: stackrox-ci
+spec:
+  params:
+    - name: stackrox-api-config-secret-name
+      type: string
+    - name: git-url
+      type: string
+    - name: git-revision
+      type: string
+    - name: file-location-in-git-repo
+      type: string
+  tasks:
+##------------------------------------------------------------------
+# Git clone task
+##------------------------------------------------------------------
+  - name: git-clone-workspace
+    params:
+      - name: url
+        value: $(params.git-url)
+      - name: revision
+        value: $(params.git-revision)
+      - name: verbose
+        value: 'false'
+    taskRef:
+      kind: ClusterTask
+      name:  git-clone
+    workspaces:
+      - name: output
+        workspace: files
+##------------------------------------------------------------------
+# deployment check
+##------------------------------------------------------------------
+  - name: deployment-check
+    params:
+      - name: stackrox-api-config-secret-name
+        value: $(params.stackrox-api-config-secret-name)
+      - name: source_location
+        value: $(params.file-location-in-git-repo)
+    taskRef:
+      kind: Task
+      name: deployment-check
+    workspaces:
+      - name: files
+        workspace: files
+    runAfter:
+      - git-clone-workspace
+##------------------------------------------------------------------
+# deployment when check is passed
+##------------------------------------------------------------------
+  - name: deployment
+    params:
+      - name: source_location
+        value: $(params.file-location-in-git-repo)
+    taskRef:
+      kind: Task
+      name: deployment
+    workspaces:
+      - name: files
+        workspace: files
+    runAfter:
+      - deployment-check
+##------------------------------------------------------------------
+# Workspace definitions
+##------------------------------------------------------------------
+  workspaces:
+  - name: files

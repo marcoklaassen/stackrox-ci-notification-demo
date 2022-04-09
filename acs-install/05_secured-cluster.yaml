@@ -1,0 +1,35 @@
+apiVersion: platform.stackrox.io/v1alpha1
+kind: SecuredCluster
+metadata:
+  name: stackrox-secured-cluster-services
+  namespace: stackrox
+spec:
+  auditLogs:
+    collection: Auto
+  admissionControl:
+    listenOnUpdates: true
+    bypass: BreakGlassAnnotation
+    contactImageScanners: DoNotScanInline
+    listenOnCreates: true
+    timeoutSeconds: 3
+    listenOnEvents: true
+    resources:
+      requests:
+        cpu: 50m
+  perNode:
+    collector:
+      collection: KernelModule
+      imageFlavor: Regular
+      resources:
+        requests:
+          cpu: 50m
+    compliance:
+      resources:
+        requests:
+          cpu: 50m
+    taintToleration: TolerateTaints
+  sensor:
+    resources:
+      requests:
+        cpu: 50m
+  clusterName: my-cluster
