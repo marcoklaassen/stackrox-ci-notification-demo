@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: failing-deployment
-  namespace: stackrox-ci
+  namespace: rhacs-ci
   labels:
     app: failing-example
 spec:

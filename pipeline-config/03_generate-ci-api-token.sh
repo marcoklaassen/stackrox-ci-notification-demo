@@ -1,15 +1,15 @@
-export ROX_CENTRAL_PASSWORD=$(oc get secret central-htpasswd -n stackrox --template={{.data.password}} | base64 -d)
-export ROX_CENTRAL_HOST=$(oc get route central -n stackrox --template={{.spec.host}})
+export ROX_CENTRAL_PASSWORD=$(oc get secret central-htpasswd -n rhacs --template={{.data.password}} | base64 -d)
+export ROX_CENTRAL_HOST=$(oc get route central -n rhacs --template={{.spec.host}})
 
 oc apply -f - <<END
 apiVersion: v1
 kind: Secret
 metadata:
-  name: stackrox-api-config
-  namespace: stackrox-ci
+  name: rhacs-api-config
+  namespace: rhacs-ci
 type: Opaque
 data:
-  host: $(oc get route central -n stackrox --template={{.spec.host}} | base64)
+  host: $(oc get route central -n rhacs --template={{.spec.host}} | base64)
   api-token: $(
     curl 'https://'$ROX_CENTRAL_HOST'/v1/apitokens/generate' \
      -H 'content-type: application/json' \

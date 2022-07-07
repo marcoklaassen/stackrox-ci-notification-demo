@@ -1,14 +1,14 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  generateName: stackrox-ci-example-
-  namespace: stackrox-ci
+  generateName: rhacs-ci-example-
+  namespace: rhacs-ci
 spec:
   pipelineRef:
     name: deployment-validation
   params:
-  - name: stackrox-api-config-secret-name
-    value: stackrox-api-config
+  - name: rhacs-api-config-secret-name
+    value: rhacs-api-config
   - name: git-url
     value: https://github.com/marcoklaassen/stackrox-ci-notification-demo.git
   - name: git-revision

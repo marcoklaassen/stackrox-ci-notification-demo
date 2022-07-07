@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: deployment
-  namespace: stackrox-ci
+  namespace: rhacs-ci
 spec:
   params:
     - name: source_location

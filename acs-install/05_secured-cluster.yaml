@@ -1,8 +1,8 @@
 apiVersion: platform.stackrox.io/v1alpha1
 kind: SecuredCluster
 metadata:
-  name: stackrox-secured-cluster-services
-  namespace: stackrox
+  name: rhacs-secured-cluster-services
+  namespace: rhacs
 spec:
   auditLogs:
     collection: Auto
@@ -32,4 +32,4 @@ spec:
     resources:
       requests:
         cpu: 50m
-  clusterName: my-cluster
+  clusterName: rhacs-demo-cluster

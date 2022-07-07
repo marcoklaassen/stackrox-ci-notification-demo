@@ -1,8 +1,8 @@
 apiVersion: platform.stackrox.io/v1alpha1
 kind: Central
 metadata:
-  name: stackrox-central-services
-  namespace: stackrox
+  name: rhacs-central-services
+  namespace: rhacs
 spec:
   central:
     exposure:
@@ -15,7 +15,7 @@ spec:
         enabled: true
     persistence:
       persistentVolumeClaim:
-        claimName: stackrox-db
+        claimName: rhacs-db
   egress:
     connectivityPolicy: Online
   scanner:

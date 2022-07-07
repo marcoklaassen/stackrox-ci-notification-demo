@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: passing-deployment
-  namespace: stackrox-ci
+  namespace: rhacs-ci
   labels:
     app: passing-example
 spec:

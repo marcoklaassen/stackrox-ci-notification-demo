@@ -1,4 +1,4 @@
 kind: Project
 apiVersion: project.openshift.io/v1
 metadata:
-  name: stackrox-ci
+  name: rhacs-ci

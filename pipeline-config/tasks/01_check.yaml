@@ -2,10 +2,10 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: deployment-check
-  namespace: stackrox-ci
+  namespace: rhacs-ci
 spec:
   params:
-    - name: stackrox-api-config-secret-name
+    - name: rhacs-api-config-secret-name
       description: Secret containing the api-token and host data for ACS Central (example - api-token = <apitoken>, host = <rox.stackrox.io>)
       type: string
     - name: source_location
@@ -18,12 +18,12 @@ spec:
           valueFrom:
             secretKeyRef:
               key: api-token
-              name: $(params.stackrox-api-config-secret-name)
+              name: $(params.rhacs-api-config-secret-name)
         - name: ROX_CENTRAL_HOST
           valueFrom:
             secretKeyRef:
               key: host
-              name: $(params.stackrox-api-config-secret-name)
+              name: $(params.rhacs-api-config-secret-name)
       image: registry.redhat.io/ubi8/ubi:8.5-226
       resources: {}
       script: >-

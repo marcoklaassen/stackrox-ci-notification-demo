@@ -2,10 +2,10 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: deployment-validation
-  namespace: stackrox-ci
+  namespace: rhacs-ci
 spec:
   params:
-    - name: stackrox-api-config-secret-name
+    - name: rhacs-api-config-secret-name
       type: string
     - name: git-url
       type: string
@@ -36,8 +36,8 @@ spec:
 ##------------------------------------------------------------------
   - name: deployment-check
     params:
-      - name: stackrox-api-config-secret-name
-        value: $(params.stackrox-api-config-secret-name)
+      - name: rhacs-api-config-secret-name
+        value: $(params.rhacs-api-config-secret-name)
       - name: source_location
         value: $(params.file-location-in-git-repo)
     taskRef:
