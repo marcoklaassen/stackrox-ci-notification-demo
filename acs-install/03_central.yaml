@@ -16,6 +16,10 @@ spec:
     persistence:
       persistentVolumeClaim:
         claimName: rhacs-db
+  customize:
+    envVars:
+      - name: ROX_PLAINTEXT_ENDPOINTS
+        value: http@8080
   egress:
     connectivityPolicy: Online
   scanner:
