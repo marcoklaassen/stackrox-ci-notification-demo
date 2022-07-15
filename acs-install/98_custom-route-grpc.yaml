@@ -1,0 +1,18 @@
+# gRPC is used to connect securedCluster sensors to Central 
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  creationTimestamp: null
+  # If OpenShift Auth is used in Central route name must be central (OAuth redirectreference)
+  name: central-grpc
+  namespace: rhacs
+spec:
+  port:
+    targetPort: "https"
+  to:
+    kind: Service
+    name: central
+    weight: 100
+  tls:
+    # init-bundle uses cerificates created by RHACS 
+    termination: "passthrough"

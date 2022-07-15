@@ -11,8 +11,9 @@ spec:
         port: 443
       nodePort:
         enabled: false
+      # When using Plaintext (8080) default routes should be enabled: false
       route:
-        enabled: true
+        enabled: false
     persistence:
       persistentVolumeClaim:
         claimName: rhacs-db
@@ -30,3 +31,12 @@ spec:
         minReplicas: 2
         replicas: 3
     scannerComponent: Enabled
+# If Router uses certificates from own PKI or self-sigend-certificates 
+  # tls:
+  #   additionalCAs:
+  #     - content: >-
+  #         <CA_PEM>
+  #       name: ca.crt
+  #     - content: >-
+  #         <SUB_CA_PEM>
+  #       name: sub-ca.crt

@@ -2,7 +2,8 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   creationTimestamp: null
-  name: rhacs-central
+  # If OpenShift Auth is used in Central route name must be central (OAuth redirectreference)
+  name: central
   namespace: rhacs
 spec:
   port:
