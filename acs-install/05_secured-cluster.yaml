@@ -6,6 +6,8 @@ metadata:
 spec:
   auditLogs:
     collection: Auto
+  # If securedCluster installed on external cluster (not cluster which has central installed)  
+  # centralEndpoint: <central-grpc URL> 
   admissionControl:
     listenOnUpdates: true
     bypass: BreakGlassAnnotation
@@ -33,3 +35,12 @@ spec:
       requests:
         cpu: 50m
   clusterName: rhacs-demo-cluster
+  # If Router uses certificates from own PKI or self-sigend-certificates 
+  # tls:
+  #   additionalCAs:
+  #     - content: >-
+  #         <CA_PEM>
+  #       name: ca.crt
+  #     - content: >-
+  #         <SUB_CA_PEM>
+  #       name: sub-ca.crt

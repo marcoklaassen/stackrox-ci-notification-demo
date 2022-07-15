@@ -2,3 +2,6 @@ kind: Project
 apiVersion: project.openshift.io/v1
 metadata:
   name: rhacs
+  # Set if Damonset Pods won't start (existing NodeSelector) 
+  # annotations:
+  #   openshift.io/node-selector: ""
