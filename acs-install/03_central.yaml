@@ -14,6 +14,11 @@ spec:
       # When using Plaintext (8080) default routes should be enabled: false
       route:
         enabled: false
+    db:
+      isEnabled: Default
+      persistence:
+        persistentVolumeClaim:
+          claimName: central-db
     persistence:
       persistentVolumeClaim:
         claimName: rhacs-db
@@ -31,7 +36,7 @@ spec:
         minReplicas: 2
         replicas: 3
     scannerComponent: Enabled
-# If Router uses certificates from own PKI or self-sigend-certificates 
+# If Router uses certificates from own PKI or self-sigend-certificates
   # tls:
   #   additionalCAs:
   #     - content: >-
